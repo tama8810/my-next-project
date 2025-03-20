@@ -52,6 +52,11 @@ export const getNewsList = async (queries?: MicroCMSQueries) => {
   .getList<News>({
     endpoint: "news",
     queries,
+    customRequestInit: {
+      next: {
+        revalidate: queries?.draftKey === undefined ? 60 : 0,
+      }
+    }
   });
   return listData;
 };
